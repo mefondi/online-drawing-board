@@ -1,0 +1,10 @@
+.SettingBar{
+    height: 40px; 
+    background-color: #7A9E9F;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    box-shadow: 0 4px 5px #4F6367;
+    top: 40px;
+  }

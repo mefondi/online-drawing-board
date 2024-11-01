@@ -1,0 +1,45 @@
+.tollbar{
+  height: 40px;   
+  background-color: #7A9E9F;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  box-shadow: 0 4px 5px #4F6367;
+  z-index: 99;
+  .tollbar__btn{
+    height: 25px;
+    width: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-size: cover;
+    margin-left: 20px;
+  }
+  .brush{
+    background: url('../../assets/img/icons8-kosmetischer-pinsel-25.png') no-repeat center center;
+  }
+  .quadrat{
+    background: url('../../assets/img/icons8-abgerundetes-quadrat-25.png') no-repeat center center;
+  }
+  .kreis{
+    background: url('../../assets/img/icons8-kreis-25.png') no-repeat center center;
+  }
+  .radiergummi{
+    background: url('../../assets/img/icons8-radiergummi-25.png') no-repeat center center;
+  }
+  .linie{
+    background: url('../../assets/img/icons8-linie-25.png') no-repeat center center;
+  }
+  .back{
+    margin-left: auto;
+    background: url('../../assets/img/icons8-zurück-25.png') no-repeat center center;
+  }
+  .forward{
+    background: url('../../assets/img/icons8-vorwärts-25.png') no-repeat center center;
+  }
+  .save{
+    background: url('../../assets/img/icons8-speichern-25.png') no-repeat center center;
+    margin-right: 20px;
+  }
+}
