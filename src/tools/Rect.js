@@ -50,5 +50,5 @@ export default function Brush() {
     stateCanvas.canvas.onmousemove = (e) => mouseMoveHandler(e)
     stateCanvas.canvas.onmousedown = (e) => mouseDownHandler(e)
     stateCanvas.canvas.onmouseup = (e) => mouseUpHandler(e)
-    stateCanvas.setСtx(ctx)
+    stateCanvas.setCtx(ctx)
 }

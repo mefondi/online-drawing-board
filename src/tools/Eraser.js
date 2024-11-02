@@ -23,9 +23,11 @@ export default function Brush() {
     };
 
     function draw(x, y) {
+        const color = ctx.strokeStyle 
         ctx.strokeStyle = 'white'
         ctx.lineTo(x, y)
         ctx.stroke()
+        ctx.strokeStyle = color
     }
     stateCanvas.canvas.onmousemove = null
     stateCanvas.canvas.onmousedown = null
@@ -33,5 +35,5 @@ export default function Brush() {
     stateCanvas.canvas.onmousemove = (e) => mouseMoveHandler(e)
     stateCanvas.canvas.onmousedown = (e) => mouseDownHandler(e)
     stateCanvas.canvas.onmouseup = (e) => mouseUpHandler(e)
-    stateCanvas.setСtx(ctx)
+    stateCanvas.setCtx(ctx)
 }
