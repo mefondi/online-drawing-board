@@ -1,48 +1,54 @@
-import Tool from "./Tool"
+import useCanvasState from '../store/canvasState'
 
-export default class Brush extends Tool {
-    constructor(canvas) {
-        super(canvas)
-        this.listen()
-    }
+export default function Brush() {
+    const stateCanvas = useCanvasState.getState()
 
-    listen() {
-        this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
-        this.canvas.onmousedown = this.mouseDownHandler.bind(this)
-        this.canvas.onmouseup = this.mouseUpHandler.bind(this)
-    }
-
-    mouseUpHandler(e){
-        this.mouseDown = false
-    }
-    mouseDownHandler(e){
-        this.mouseDown = true
-        this.ctx.beginPath()
-        this.ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
-        this.startX = e.pageX - e.target.offsetLeft
-        this.startY =  e.pageY - e.target.offsetTop
-        this.saved = this.canvas.toDataURL()
-    }
-    mouseMoveHandler(e){
-        if (this.mouseDown){
-            let currentX = e.pageX - e.target.offsetLeft
-            let currentY =  e.pageY - e.target.offsetTop
-            let width = currentX - this.startX
-            let height = currentY - this.startY
-            this.draw(this.startX, this.startY, width, height)
+    const ctx = stateCanvas.canvas.getContext('2d')
+    let mouseDown = false
+    let startX
+    let startY
+    let saved
+    
+    const mouseUpHandler = () => {
+        mouseDown = false
+    };
+    
+    const mouseDownHandler = (e) => {
+        mouseDown = true
+        ctx.beginPath()
+        ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)
+        startX = e.pageX - e.target.offsetLeft
+        startY =  e.pageY - e.target.offsetTop
+        saved = stateCanvas.canvas.toDataURL()
+    };
+    
+    const mouseMoveHandler = (e) => {
+        if (mouseDown){
+            const currentX = e.pageX - e.target.offsetLeft
+            const currentY =  e.pageY - e.target.offsetTop
+            const width = currentX - startX
+            const height = currentY - startY
+            draw(startX, startY, width, height)
         }
-    }
-
-    draw(x, y, w, h) {
+    };
+    
+    const draw = (x, y, w, h) => {
         const img = new Image()
-        img.src = this.saved
+        img.src = saved
         img.onload = () => {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-            this.ctx.drawImage(img, 0, 0)
-            this.ctx.beginPath()
-            this.ctx.rect(x, y, w, h)
-            this.ctx.fill()
-            this.ctx.stroke()
+            ctx.clearRect(0, 0, stateCanvas.canvas.width, stateCanvas.canvas.height)
+            ctx.drawImage(img, 0, 0)
+            ctx.beginPath()
+            ctx.rect(x, y, w, h)
+            ctx.fill()
+            ctx.stroke()
         } 
     }
+    stateCanvas.canvas.onmousemove = null
+    stateCanvas.canvas.onmousedown = null
+    stateCanvas.canvas.onmouseup = null
+    stateCanvas.canvas.onmousemove = (e) => mouseMoveHandler(e)
+    stateCanvas.canvas.onmousedown = (e) => mouseDownHandler(e)
+    stateCanvas.canvas.onmouseup = (e) => mouseUpHandler(e)
+    stateCanvas.setСtx(ctx)
 }

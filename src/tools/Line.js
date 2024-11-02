@@ -1,47 +1,50 @@
-import Tool from "./Tool";
+import useCanvasState from '../store/canvasState'
 
-export default class Line extends Tool {
-    constructor(canvas) {
-        super(canvas)
-        this.listen()
-    }
+export default function Brush() {
+    const stateCanvas = useCanvasState.getState()
 
-    listen() {
-        this.canvas.onmousedown = this.mouseDownHandler.bind(this)
-        this.canvas.onmouseup = this.mouseUpHandler.bind(this)
-        this.canvas.onmousemove = this.mouseMoveHandler.bind(this)
-    }
-
-    mouseUpHandler(e){
-        this.mouseDown = false
-    }
-
-    mouseDownHandler(e) {
-        this.mouseDown = true
-        this.ctx.beginPath()
-        this.currentX = e.pageX-e.target.offsetLeft
-        this.currentY = e.pageY-e.target.offsetTop
-        this.ctx.moveTo(this.currentX, this.currentY )
-        this.saved = this.canvas.toDataURL()
-    }
-
-    mouseMoveHandler(e) {
-        if (this.mouseDown) {
-            this.draw(e.pageX-e.target.offsetLeft, e.pageY-e.target.offsetTop);
+    const ctx = stateCanvas.canvas.getContext('2d')
+    let mouseDown = false
+    let currentX
+    let currentY
+    let saved
+    
+    const mouseUpHandler = () => {
+        mouseDown = false
+    };
+    
+    const mouseDownHandler = (e) => {
+        mouseDown = true
+        ctx.beginPath()
+        currentX = e.pageX-e.target.offsetLeft
+        currentY = e.pageY-e.target.offsetTop
+        ctx.moveTo(currentX, currentY )
+        saved = stateCanvas.canvas.toDataURL()
+    };
+    
+    const mouseMoveHandler = (e) => {
+        if (mouseDown){
+            draw(e.pageX-e.target.offsetLeft, e.pageY-e.target.offsetTop);
         }
-    }
-
-
-    draw(x,y) {
+    };
+    
+    const draw = (x, y) => {
         const img = new Image()
-        img.src = this.saved
+        img.src = saved
         img.onload = () => {
-            this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height)
-            this.ctx.drawImage(img, 0, 0)
-            this.ctx.beginPath()
-            this.ctx.moveTo(this.currentX, this.currentY )
-            this.ctx.lineTo(x, y)
-            this.ctx.stroke()
+            ctx.clearRect(0,0, stateCanvas.canvas.width, stateCanvas.canvas.height)
+            ctx.drawImage(img, 0, 0)
+            ctx.beginPath()
+            ctx.moveTo(currentX, currentY )
+            ctx.lineTo(x, y)
+            ctx.stroke()
         }
     }
+    stateCanvas.canvas.onmousemove = null
+    stateCanvas.canvas.onmousedown = null
+    stateCanvas.canvas.onmouseup = null
+    stateCanvas.canvas.onmousemove = (e) => mouseMoveHandler(e)
+    stateCanvas.canvas.onmousedown = (e) => mouseDownHandler(e)
+    stateCanvas.canvas.onmouseup = (e) => mouseUpHandler(e)
+    stateCanvas.setСtx(ctx)
 }

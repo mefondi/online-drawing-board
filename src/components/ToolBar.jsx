@@ -5,19 +5,15 @@ import Rect from '../tools/Rect'
 import Circle from '../tools/Circle'
 import Eraser from '../tools/Eraser'
 import Line from '../tools/Line'
-import useCanvasState from '../store/canvasState'
-import useToolState from '../store/toolState'
 
 export default function ToolBar() {
-  const canvas = useCanvasState((state) => state.canvas)
-  const setTool = useToolState((state) => state.setTool)
   return (
     <div className={st.tollbar}>
-        <button className={[st.tollbar__btn, st.brush].join(' ')} onClick={() => setTool(new Brush(canvas))}></button>
-        <button className={[st.tollbar__btn, st.quadrat].join(' ')} onClick={() => setTool(new Rect(canvas))}></button>
-        <button className={[st.tollbar__btn, st.kreis].join(' ')} onClick={() => setTool(new Circle(canvas))}></button>
-        <button className={[st.tollbar__btn, st.radiergummi].join(' ')} onClick={() => setTool(new Eraser(canvas))}></button>
-        <button className={[st.tollbar__btn, st.linie].join(' ')} onClick={() => setTool(new Line(canvas))}></button>
+        <button className={[st.tollbar__btn, st.brush].join(' ')}  onClick={() => Brush()}></button>
+        <button className={[st.tollbar__btn, st.quadrat].join(' ')} onClick={() => Rect()}></button>
+        <button className={[st.tollbar__btn, st.kreis].join(' ')} onClick={() => Circle()}></button>
+        <button className={[st.tollbar__btn, st.radiergummi].join(' ')} onClick={() => Eraser()}></button>
+        <button className={[st.tollbar__btn, st.linie].join(' ')} onClick={() => Line()}></button>
         <input style={{marginLeft: 20}} type='color'/>
         <button className={[st.tollbar__btn, st.back].join(' ')}></button>
         <button className={[st.tollbar__btn, st.forward].join(' ')}></button>

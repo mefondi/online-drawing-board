@@ -1,17 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import st from './style/canvas.module.css'
 import useCanvasState from '../store/canvasState'
-import useToolState from '../store/toolState'
-import Brush from '../tools/Brush'
 
 export default function Canvas() {
-  const {canvas, setCanvas} = useCanvasState()
-  const {tool, setTool} = useToolState()
+  const setCanvas = useCanvasState((s) => s.setCanvas)
   const canvasRef = useRef()
   
   useEffect(()=>{
     setCanvas(canvasRef.current)
-    setTool(new Brush(canvasRef.current))
   }, [])
 
   return (
