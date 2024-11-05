@@ -7,6 +7,9 @@ export default function React() {
 
   const ctx = stateCanvas.canvas.getContext("2d");
   let mouseDown = false;
+  
+  stateCanvas.setTool('React')
+
   let startX;
   let startY;
   let width;
@@ -24,9 +27,9 @@ export default function React() {
         y: startY,
         width: width,
         height: height,
-        fillStyle: ctx.fillStyle,
-        lineWidth: ctx.lineWidth ,
-        strokeStyle: ctx.strokeStyle,
+        fillStyle: stateCanvas.fillStyle,
+        lineWidth: stateCanvas.lineWidth ,
+        strokeStyle: stateCanvas.strokeStyle,
       })
     );
   };
@@ -51,6 +54,9 @@ export default function React() {
   const draw = (x, y, w, h) => {
     const img = new Image();
     img.src = saved;
+    ctx.lineWidth = stateCanvas.lineWidth;
+    ctx.fillStyle = stateCanvas.fillStyle;
+    ctx.strokeStyle = stateCanvas.strokeStyle;
     img.onload = () => {
       ctx.clearRect(0, 0, stateCanvas.canvas.width, stateCanvas.canvas.height);
       ctx.drawImage(img, 0, 0);

@@ -8,6 +8,8 @@ const useCanvasState = create((set, get) => ({
     lineWidth: 1,
     fillStyle: '#000',
     strokeStyle: '#000',
+    tool: 'Brush',
+    setTool: (tool) => set((state) => ({ tool: tool })),
     setLineWidth: (lineWidth) => set((state) => ({ lineWidth: lineWidth })),
     setFillStyle: (fillStyle) => set((state) => ({ fillStyle: fillStyle })),
     setStrokeStyle: (strokeStyle) => set((state) => ({ strokeStyle: strokeStyle })),

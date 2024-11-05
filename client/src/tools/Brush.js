@@ -7,21 +7,25 @@ export default function Brush() {
 
   const ctx = stateCanvas.canvas.getContext("2d");
   let mouseDown = false;
+  stateCanvas.setTool('Brush')
 
   const mouseUpHandler = () => {
     mouseDown = false;
   };
 
   const mouseDownHandler = (e) => {
+    if (!sessionState.socket) {
+      return
+    }
     mouseDown = true;
     sessionState.socket.send(
       JSON.stringify({
         method: "draw",
         figure: "stopDraw",
         id: sessionState.sessionId,
-        fillStyle: ctx.fillStyle,
-        lineWidth: ctx.lineWidth ,
-        strokeStyle: ctx.strokeStyle,
+        fillStyle: stateCanvas.fillStyle,
+        lineWidth: stateCanvas.lineWidth ,
+        strokeStyle: stateCanvas.strokeStyle,
       })
     );
     ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop);

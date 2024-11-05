@@ -6,6 +6,7 @@ export default function Circle() {
   const sessionState = useSessionState.getState();
 
   const ctx = stateCanvas.canvas.getContext("2d");
+  stateCanvas.setTool('Circle')
   let mouseDown = false;
   let startX;
   let startY;
@@ -22,9 +23,9 @@ export default function Circle() {
         x: startX,
         y: startY,
         r: radius,
-        fillStyle: ctx.fillStyle,
-        lineWidth: ctx.lineWidth ,
-        strokeStyle: ctx.strokeStyle,
+        fillStyle: stateCanvas.fillStyle,
+        lineWidth: stateCanvas.lineWidth ,
+        strokeStyle: stateCanvas.strokeStyle,
       })
     );
   };
@@ -52,6 +53,9 @@ export default function Circle() {
     }
     const img = new Image();
     img.src = saved;
+    ctx.lineWidth = stateCanvas.lineWidth;
+    ctx.fillStyle = stateCanvas.fillStyle;
+    ctx.strokeStyle = stateCanvas.strokeStyle;
     img.onload = () => {
       ctx.clearRect(0, 0, stateCanvas.canvas.width, stateCanvas.canvas.height);
       ctx.drawImage(img, 0, 0);

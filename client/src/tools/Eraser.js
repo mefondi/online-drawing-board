@@ -6,6 +6,7 @@ export default function Eraser() {
     const sessionState = useSessionState.getState();
 
     const ctx = stateCanvas.canvas.getContext('2d')
+    stateCanvas.setTool('Eraser')
     let mouseDown = false
 
     const mouseUpHandler = () => {
@@ -19,9 +20,9 @@ export default function Eraser() {
               method: "draw",
               figure: "stopDraw",
               id: sessionState.sessionId,
-              fillStyle: ctx.fillStyle,
-              lineWidth: ctx.lineWidth ,
-              strokeStyle: ctx.strokeStyle,
+              fillStyle: stateCanvas.fillStyle,
+              lineWidth: stateCanvas.lineWidth ,
+              strokeStyle: stateCanvas.strokeStyle,
             })
           );
         ctx.moveTo(e.pageX - e.target.offsetLeft, e.pageY - e.target.offsetTop)

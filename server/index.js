@@ -4,6 +4,8 @@ const WSServer = require("express-ws")(app);
 const aWss = WSServer.getWss();
 const PORT = process.env.PORT || 3500;
 
+app.use(express.json())
+
 app.ws("/", (ws, req) => {
   ws.on("message", (msg) => {
     msg = JSON.parse(msg);
