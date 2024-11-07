@@ -7,9 +7,10 @@ import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
 import serverRequests from "../utils/serverRequests";
 import Brush from "../tools/Brush.js";
+import AddUndo from "../tools/AddUndo.js";
 
 export default function Canvas() {
-  const { setCanvas, setUndoList } = useCanvasState();
+  const { setCanvas, pushUndoList } = useCanvasState();
   const { username, setUsername } = useSessionState();
   const [modal, setModal] = useState(true);
   const canvasRef = useRef();
@@ -46,7 +47,7 @@ export default function Canvas() {
       </Modal>
 
       <canvas
-        onMouseDown={() => setUndoList(canvasRef.current.toDataURL())}
+        onMouseDown={() => AddUndo(canvasRef)}
         ref={canvasRef}
         width={1600}
         height={700}

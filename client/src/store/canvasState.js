@@ -15,8 +15,9 @@ const useCanvasState = create((set, get) => ({
     setStrokeStyle: (strokeStyle) => set((state) => ({ strokeStyle: strokeStyle })),
     setCanvas: (canvas) => set((state) => ({ canvas: canvas })),
     setCtx: (ctx) => set((state) => ({ ctx: ctx })),
-    setUndoList: (undo) => set((state) => ({undoList: [ ...state.undoList, undo]})),
-    setRedoList: (redo) => set((state) => ({redoList: [ ...state.redoList, redo]})),
+    pushUndoList: (undo) => set((state) => ({undoList: [ ...state.undoList, undo]})),
+    setUndoList: (undo) => set((state) => ({undoList: undo})),
+    setRedoList: (redo) => set((state) => ({redoList: redo})),
     undo: () => {
         const state = get();
         if (state.undoList.length > 0) {

@@ -6,10 +6,12 @@ import Circle from '../tools/Circle'
 import Eraser from '../tools/Eraser'
 import Line from '../tools/Line'
 import Save from '../tools/Save'
+import Rendo from '../tools/Rendo'
+import Undo from '../tools/Undo'
 import useCanvasState from '../store/canvasState'
 
 export default function ToolBar() {
-  const {undo, rendo, lineWidth, fillStyle, strokeStyle, tool, canvas} = useCanvasState();
+  const {lineWidth, fillStyle, strokeStyle, tool, canvas} = useCanvasState();
   
   useEffect(() => {
     if (canvas.length === 0) {
@@ -43,8 +45,8 @@ export default function ToolBar() {
         <button className={[st.tollbar__btn, st.kreis].join(' ')} onClick={() => Circle()}></button>
         <button className={[st.tollbar__btn, st.radiergummi].join(' ')} onClick={() => Eraser()}></button>
         <button className={[st.tollbar__btn, st.linie].join(' ')} onClick={() => Line()}></button>
-        <button className={[st.tollbar__btn, st.back].join(' ')} onClick={() => undo()}></button>
-        <button className={[st.tollbar__btn, st.forward].join(' ')} onClick={() => rendo()}></button>
+        <button className={[st.tollbar__btn, st.back].join(' ')} onClick={() => Undo()}></button>
+        <button className={[st.tollbar__btn, st.forward].join(' ')} onClick={() => Rendo()}></button>
         <button className={[st.tollbar__btn, st.save].join(' ')} onClick={() => Save()}></button>
     </div>
 

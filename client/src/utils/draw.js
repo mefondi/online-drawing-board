@@ -1,7 +1,10 @@
+import useCanvasState from "../store/canvasState";
+
 export default function drawHandler(message, ctx) {
   ctx.lineWidth = message.lineWidth;
   ctx.fillStyle = message.fillStyle;
   ctx.strokeStyle = message.strokeStyle;
+  const stateCanvas = useCanvasState.getState();
 
   switch (message.figure) {
     case "Brush":
@@ -19,11 +22,19 @@ export default function drawHandler(message, ctx) {
     case "Line":
       Line(message, ctx);
       break;
+    case "Undo":
+      stateCanvas.undo();
+      break;
+    case "Rendo":
+      stateCanvas.rendo();
+      break;
+    case "AddUndo":
+      stateCanvas.pushUndoList(message.Url)
+      break;
     case "stopDraw":
       ctx.beginPath();
       break;
   };
-
 }
 
 function Eraser(message, ctx) {
@@ -38,7 +49,7 @@ function Eraser(message, ctx) {
 function Brush(message, ctx) {
   const { x, y } = message;
   ctx.lineTo(x, y);
-  ctx.stroke();
+  ctx.stroke(); 
 }
 
 const React = (message, ctx) => {
